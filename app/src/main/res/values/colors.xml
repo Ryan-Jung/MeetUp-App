@@ -8,4 +8,7 @@
     <color name="colorGreyLight">#303030</color>
     <color name="colorLightGrey">#424242</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteDimGrey">#FAFAFA</color>
+    <color name="colorWhiteGreyLight">#F5F5F5</color>
+    <color name="colorWhitePrimeGrey">#E0E0E0</color>
 </resources>

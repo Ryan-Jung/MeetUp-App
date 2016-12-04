@@ -7,60 +7,54 @@ Jesse Christiansen, Ryan Jung, William Fujimoto
 TODO - Add your team's unlisted youtube video link here.
 
 ## Problem statement:
-You will be building an app that displays a list of Cards based on a Search Query.
-
-Here is what the screens will look like:
-
-Screen1(With Search bar and the RecyclerView): 
-![Screen1](/imgs/screen1.png?raw=true "")
-
-Screen2(Details of the Story): 
-![Screen2](/imgs/screen2.png?raw=true "")
-
-The user will have the chance of entering in a search query into the search bar. Your app should populate the RecyclerView(which is right below it) with cards. Clicking on a Card will take the user into another activity that will have details for that story.
+You are to build on your project1 by adding real world functionality into your app. You must query an appropriate API, and populate cards. By default, you must work with the Meetup API. But you can decide to use any other API after asking on Piazza(IMDB,etc)
 
 
-###Models & Controllers
-**A class called Story**, that holds the data members for a single Card. The Story class should have the following members:
+Here are the **inputs** into your program:
 
-* UUID mUuid
-* String mName
-* String mDescription
-* A Picture field (an appropriate image type)
+* Search keywords(obtained from the SearchView widget)
+* Device location(Latitude and longitude) (This can vary based on the API you use, ask permission on Piazza before using a new API)
 
-**A Singleton for Stories**, Look at the class samples to look at how you should use the Singleton. You can implement the search mechanism here.
+**Outputs**:
 
-**A Recycler View** that is right below the search query(Look at the mockup pictures)
+* List of cards
+* Cards should contain adequate material based on the API you decide to use(look at the meetup example below).
 
-**Other necessary classes as seen in the class samples**
+#####Example API: Meetup API
 
-##Constraints
-* For now you must support a Potrait phone layout only.
-* You are strongly recommended to follow best practicies for android development. Look at the samples for best practices. If you use something better, document it in your submission video.
-* Use an appropriate search widget for the search bar.
-* Use appropriate widgets to represent Cards in android(Instead of designing from scratch).
-* You are free to choose implementation details that are not mentioned in this requirements Readme.
+* If you use the Meetup API, your cards should have Pictures of the Meetup, number of attendies, name, ID(obtained from the API), description, Link, etc.
+* The cards populated should use the devices location in order to suggest cards nearby.
+* You will require an API key to be able to query the meetup api: https://secure.meetup.com/meetup_api/key/
+* You can play with the Meetup console to play around with the API: https://secure.meetup.com/meetup_api/console/
+* You could also use Postman to play around with the API.
 
 
 ##Requirements:
-These requirements are divided into tiers, completing more will grant you a higher grade for the assignment.
+These requirements are divided into tiers, you are required to complete all the tiers for a full grade.
 
-**Tier 1:**
+**Tier 1 (25% of grade acheived):**
 
-* Layouts are built correctly, with a search widget and a recycler view
-* Singlton class and model implemented.
-* The recycler view populates cards.
+* You are able to query necessary APIs using Volley
+* You print the Json onto the console
 
-**Tier 2:**
+**Tier 2 (60% of grade acheived):**
 
-* Your app supports Material design and the Cards/view is aesthetically pleasing.
-* Search should work(search by Name of story). The user enters a query, then hits "Search" to search for Items.
+* The app converts the Json into class objects
+* The app uses the search widget to query the api
+* You are able to access the location sensors on the device to find the Latitude and Longitude
 
-**Tier 3:**
+**Tier 3 (100% of grade acheived):**
 
-* Add a splash screen
-* Real-time search, starts searching and populating the recycler view as soon as the user enters in characters into the query.
-* App is throughly tested to remove any bugs. Document any additional work into the video.
+* The app works seamlessly.
+* Real time search.
+* Your cards have the necessary fields based on the API you use(look at the meetup example mentioned above).
+
+**Optional requirements**(to make up for less work done in project 1)
+
+* Support for the links to open in Webview.
+* Additional functionality depending on API you use:
+* Eg: A map view if using Meetup API
+* Another Ex: Ability to view videos if using the IMDB API
 
 
 ##Submission
@@ -70,8 +64,6 @@ These requirements are divided into tiers, completing more will grant you a high
 
 
 ## Note
-* There are no extensions
 * Make sure your last push is before the deadline. Your last push will be considered as your final submission.
-* You will be building on this assignment in Project 2. So you have to make sure that you finish this assignment (atleast till tier1 for a minimum grade)
 * Post questions on Piazza if you have any questions.
 * Please contact the course staff if you run into issues. We are here to help you!

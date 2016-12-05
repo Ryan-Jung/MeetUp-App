@@ -65,7 +65,6 @@ public class StoryEvent {
 
         private Venue() {
         }
-
         @Override
         public String toString(){
             return ("ID: " + id + "\nName: " + name + "\nID: " + id + "\nName: "

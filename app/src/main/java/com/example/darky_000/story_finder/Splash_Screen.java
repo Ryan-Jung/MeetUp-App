@@ -19,7 +19,6 @@ public class Splash_Screen extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         runOn();
         setContentView(R.layout.splash_screen);
@@ -42,7 +41,6 @@ public class Splash_Screen extends AppCompatActivity{
 
     @Override
     protected void onPause() {
-        // TODO Auto-generated method stub
         super.onPause();
         finish();
     }

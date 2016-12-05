@@ -3,6 +3,13 @@ package com.example.darky_000.story_finder;
 import android.widget.ImageView;
 import java.util.UUID;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by darky_000 on 11/20/2016.
  */

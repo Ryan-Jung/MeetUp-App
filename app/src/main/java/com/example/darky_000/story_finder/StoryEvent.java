@@ -3,7 +3,8 @@ package com.example.darky_000.story_finder;
 /**
  * Created by darky_000 on 12/4/2016.
  */
-
+//The API Meetup Link is this
+//https://api.meetup.com/find/events?key=783e741d1d3316397c7e3b2b175025b
 public class StoryEvent {
 
     private int created;

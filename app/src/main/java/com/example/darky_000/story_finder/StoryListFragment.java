@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 //import android.widget.Toast;
 import java.util.List;
+
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.darky_000.story_finder.controller.JsonController;
 
 /**
  * Created by darky_000 on 11/21/2016.
@@ -23,10 +28,11 @@ public class StoryListFragment extends Fragment {
     private RecyclerView mStoryRecyclerView;
     private StoryAdapter mAdapter;
     private SearchView searchView;
+    private JsonController controller;
     //private Button searchButton;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_story_list, container, false);
 
@@ -46,11 +52,39 @@ public class StoryListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (newText.length() > 1){
+                    controller.cancelAllRequests();
+                    controller.sendRequest(newText);
+                } else if(newText.equals("")){
+                    mStoryRecyclerView.setVisibility(View.GONE);
+                }
                 updateUI(newText);
                 return false;
             }
         });
         searchView.setIconified(false);
+
+        controller = new JsonController(
+                new JsonController.OnResponseListener() {
+                    @Override
+                    public void onSuccess(List<StoryEvent> storyEvents) {
+                        if(storyEvents.size() > 0) {
+                            /*textView.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
+                            recyclerView.invalidate();
+                            adapter.updateDataSet(movies);
+                            recyclerView.setAdapter(adapter);*/
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String errorMessage) {
+                        Log.e("onFailure",errorMessage);
+                        //textView.setVisibility(View.VISIBLE);
+                        //textView.setText("Failed to retrieve data");
+                    }
+                });
+
         /*searchButton = (Button) view
                 .findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener(){

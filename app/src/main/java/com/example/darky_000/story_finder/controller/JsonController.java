@@ -5,6 +5,7 @@ package com.example.darky_000.story_finder.controller;
  */
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -59,6 +60,7 @@ public class JsonController {
                  @Override
                  public void onResponse(List<StoryEvent> movies) {
                      responseListener.onSuccess(movies);
+                     Log.d("JSON", movies.get(0).getName());
                  }
              },
              new Response.ErrorListener() {

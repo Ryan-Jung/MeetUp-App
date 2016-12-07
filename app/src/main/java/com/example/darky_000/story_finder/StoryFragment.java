@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.UUID;
 
 /**
@@ -14,7 +15,7 @@ import java.util.UUID;
  */
 
 public class StoryFragment extends Fragment {
-    private Story mStory;
+    private StoryEvent mStory;
     private TextView mTitleField;
     private TextView mDetailField;
     private ImageView mImageField;
@@ -26,7 +27,7 @@ public class StoryFragment extends Fragment {
         UUID storyId = (UUID) getActivity().getIntent()
                 .getSerializableExtra(StoryActivity.EXTRA_STORY_ID);
 
-        mStory = StoryLab.get(getActivity()).getStory(storyId);
+        mStory = StoryEventList.getInstance().getStoryEvent(storyId);
 
         /*Toast.makeText(getActivity(),
                 storyId.toString()+ "clicked!", Toast.LENGTH_SHORT)
@@ -43,11 +44,11 @@ public class StoryFragment extends Fragment {
 
         mTitleField = (TextView) v.findViewById(R.id.story_name);
         mDetailField = (TextView) v.findViewById(R.id.story_title_description);
-        mTitleField.setText(mStory.getmName());
-        mDetailField.setText(mStory.getmDescription());
+        mTitleField.setText(mStory.getName());
+        mDetailField.setText(mStory.getDescription());
 
-        mImageField = (ImageView) v.findViewById(R.id.story_image_view);
-        mImageField.setImageDrawable(mStory.getmImage().getDrawable());
+//        mImageField = (ImageView) v.findViewById(R.id.story_image_view);
+//        mImageField.setImageDrawable(mStory.getmImage().getDrawable());
 
         return v;
     }

@@ -13,13 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 //import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.darky_000.story_finder.controller.JsonController;
 
 /**
@@ -127,6 +125,8 @@ public class StoryListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = StoryActivity.newIntent(getActivity(), mStory.getmUuid());
+            //Save StoryList before starting new activity
+            StoryEventList.getInstance().setList(mAdapter.mStories);
             startActivity(intent);
         }
     }

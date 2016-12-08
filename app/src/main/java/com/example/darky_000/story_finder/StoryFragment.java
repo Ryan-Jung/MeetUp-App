@@ -1,10 +1,13 @@
 package com.example.darky_000.story_finder;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +22,9 @@ public class StoryFragment extends Fragment {
     private TextView mTitleField;
     private TextView mDetailField;
     private ImageView mImageField;
+    private TextView mIdField;
+    private Button viewButton;
+    private String meetUpURL;
 
 
     @Override
@@ -42,10 +48,27 @@ public class StoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_story, container, false);
 
+        meetUpURL = mStory.getLink();
+
         mTitleField = (TextView) v.findViewById(R.id.story_name);
         mDetailField = (TextView) v.findViewById(R.id.story_title_description);
+        mIdField = (TextView) v.findViewById(R.id.story_id);
+
+        mIdField.setText(mStory.getId());
         mTitleField.setText(mStory.getName());
         mDetailField.setText(mStory.getDescription());
+
+
+        viewButton = (Button) v.findViewById(R.id.view_story_button);
+
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse(meetUpURL);
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(webIntent);
+            }
+        });
 
 //        mImageField = (ImageView) v.findViewById(R.id.story_image_view);
 //        mImageField.setImageDrawable(mStory.getmImage().getDrawable());

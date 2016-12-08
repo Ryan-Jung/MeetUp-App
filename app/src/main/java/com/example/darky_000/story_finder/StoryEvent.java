@@ -1,6 +1,9 @@
 package com.example.darky_000.story_finder;
 
 
+import android.text.Html;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -98,7 +101,10 @@ public class StoryEvent {
             this.setRsvp_limit(jsonObject.getInt("yes_rsvp_count"));
         }
         if(jsonObject.has("description")){
-            this.setDescription(jsonObject.getString("description"));
+            String description = jsonObject.getString("description");
+            Log.i("SET DESCRIPTION", description );
+            description = Html.fromHtml(description).toString();
+            this.setDescription(description);
         }
         if(jsonObject.has("link")){
             this.setLink(jsonObject.getString("link"));

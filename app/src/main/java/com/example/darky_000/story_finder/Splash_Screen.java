@@ -13,14 +13,10 @@ import java.util.List;
 
 public class Splash_Screen extends AppCompatActivity{
 
-    private void runOn() {
-        StoryLab.get(Splash_Screen.this);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        runOn();
         setContentView(R.layout.splash_screen);
 
         Thread timerThread = new Thread(){

@@ -35,12 +35,6 @@ public class StoryFragment extends Fragment {
 
         mStory = StoryEventList.getInstance().getStoryEvent(storyId);
 
-        /*Toast.makeText(getActivity(),
-                storyId.toString()+ "clicked!", Toast.LENGTH_SHORT)
-                .show();
-        System.out.println(storyId);
-        System.out.println(mStory.getmUuid());*/
-
     }
 
     @Override
@@ -54,7 +48,7 @@ public class StoryFragment extends Fragment {
         mDetailField = (TextView) v.findViewById(R.id.story_title_description);
         mIdField = (TextView) v.findViewById(R.id.story_id);
 
-        mIdField.setText(mStory.getId());
+        mIdField.setText("MeetUp Id: " + mStory.getId());
         mTitleField.setText(mStory.getName());
         mDetailField.setText(mStory.getDescription());
 
@@ -63,6 +57,9 @@ public class StoryFragment extends Fragment {
 
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * Opens up the meetup in browser
+             */
             public void onClick(View view) {
                 Uri uri = Uri.parse(meetUpURL);
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, uri);

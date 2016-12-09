@@ -130,7 +130,7 @@ public class StoryListFragment extends Fragment {
             if(storyEvent.getUrlImage() != null) {
                 this.searchImage.setImageUrl(storyEvent.getUrlImage(), imageLoader);
             }
-            searchImage.setDefaultImageResId(R.drawable.no_image);
+            searchImage.setDefaultImageResId(R.drawable.noimage);
 
 
         }

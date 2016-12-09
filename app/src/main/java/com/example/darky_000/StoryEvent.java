@@ -33,6 +33,7 @@ public class StoryEvent {
     private int waitlist;
     private int rsvp_count;
 
+
     private int latitude;
     private int longnitude;
     private String urlImage;
@@ -111,8 +112,11 @@ public class StoryEvent {
             description = Html.fromHtml(description).toString();
             this.setDescription(description);
 
-            this.setUrlImage(getUrlFromDescription(jsonObject.getString("description")));
+        }
 
+        if (jsonObject.has("group") && jsonObject.getJSONObject("group").has("photo")){
+            this.setUrlImage(jsonObject.getJSONObject("group").getJSONObject("photo").
+                    getString("photo_link"));
         }
         if(jsonObject.has("link")){
             this.setLink(jsonObject.getString("link"));

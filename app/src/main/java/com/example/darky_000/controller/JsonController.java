@@ -13,7 +13,7 @@ import com.example.darky_000.StoryEvent;
 import com.example.darky_000.app.App;
 import com.example.darky_000.request.JsonRequest;
 import com.example.darky_000.volley.VolleySingleton;
-
+import com.example.darky_000.R;
 import java.util.List;
 
 /*
@@ -47,7 +47,7 @@ public class JsonController {
         int method = Request.Method.GET;
 
         // Url with GET parameters
-        String url = "https://api.meetup.com/find/events?key=783e741d1d3316397c7e3b2b175025b";
+        String url = "https://api.meetup.com/find/events?photo-host=public&sig_id=217707520&fields=group_photo&sig=946e45fbaae2e03c14a0dc1ebf72bf4d01d90d7d";
 
 
         // Create new request using JsonRequest

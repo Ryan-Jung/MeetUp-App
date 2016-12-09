@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.darky_000.story_finder.R;
+import com.example.darky_000.R;
 
 /**
  * Created by darky_000 on 11/24/2016.

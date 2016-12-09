@@ -1,17 +1,20 @@
 package com.example.darky_000;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.example.darky_000.story_finder.R;
-import com.example.darky_000.story_finder.app.App;
-import com.example.darky_000.story_finder.volley.VolleySingleton;
+import com.example.darky_000.R;
+import com.example.darky_000.app.App;
+import com.example.darky_000.volley.VolleySingleton;
 
 import java.util.UUID;
 
@@ -37,12 +40,6 @@ public class StoryFragment extends Fragment {
 
         mStory = StoryEventList.getInstance().getStoryEvent(storyId);
 
-        /*Toast.makeText(getActivity(),
-                storyId.toString()+ "clicked!", Toast.LENGTH_SHORT)
-                .show();
-        System.out.println(storyId);
-        System.out.println(mStory.getmUuid());*/
-
     }
 
     @Override
@@ -55,21 +52,36 @@ public class StoryFragment extends Fragment {
         mID = (TextView) v.findViewById(R.id.story_id);
         mLink = (TextView) v.findViewById(R.id.story_link);
         mRSVPLimit = (TextView) v.findViewById(R.id.story_rsvp_limit);
-        searchImage = (NetworkImageView) v.findViewById(R.id.list_item_story_image);
-
+        searchImage = (NetworkImageView) v.findViewById(R.id.nivImage);
 
         mTitleField.setText(mStory.getName());
         mDetailField.setText(mStory.getDescription());
-        mID.setText(mStory.getId());
+        mID.setText("Meet Up Id:" + mStory.getId());
         mLink.setText(mStory.getLink());
         mRSVPLimit.setText(mStory.getRsvp_limit());
 
         ImageLoader imageLoader = VolleySingleton.getInstance(App.getContext()).getImageLoader();
-        searchImage.setImageUrl(mStory.getUrlImage(),imageLoader);
+        /**
+         * Display image on top card
+         */
+        if(mStory.getUrlImage() != null) {
+            searchImage.setImageUrl(mStory.getUrlImage(), imageLoader);
+        }
+        //display default image if no network image is available
+        searchImage.setDefaultImageResId(R.mipmap.ic_launcher);
 
-//        mImageField = (ImageView) v.findViewById(R.id.story_image_view);
-//        mImageField.setImageDrawable(mStory.getmImage().getDrawable());
+        mLink.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Opens the meetup link in web browser
+             */
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse(mStory.getLink());
+                Intent webItent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(webItent);
 
+            }
+        });
         return v;
     }
 }

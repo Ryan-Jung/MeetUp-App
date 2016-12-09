@@ -9,10 +9,10 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.darky_000.story_finder.StoryEvent;
-import com.example.darky_000.story_finder.app.App;
-import com.example.darky_000.story_finder.request.JsonRequest;
-import com.example.darky_000.story_finder.volley.VolleySingleton;
+import com.example.darky_000.StoryEvent;
+import com.example.darky_000.app.App;
+import com.example.darky_000.request.JsonRequest;
+import com.example.darky_000.volley.VolleySingleton;
 
 import java.util.List;
 
@@ -54,24 +54,23 @@ public class JsonController {
       JsonRequest request
               = new JsonRequest(
               method,
-             url,
-             new Response.Listener<List<StoryEvent>>() {
-                 @Override
-                 public void onResponse(List<StoryEvent> movies) {
-                     responseListener.onSuccess(movies);
-                     Log.d("JSON", movies.get(0).getName());
-                 }
-             },
-             new Response.ErrorListener() {
-                 @Override
-                 public void onErrorResponse(VolleyError error) {
-                     responseListener.onFailure(error.getMessage());
-                 }
-             }
-     );
+              url,
+              new Response.Listener<List<StoryEvent>>() {
+                  @Override
+                  public void onResponse(List<StoryEvent> response) {
+                      responseListener.onSuccess(response);
+                  }
+              },
+              new Response.ErrorListener() {
+                  @Override
+                  public void onErrorResponse(VolleyError error) {
+                      responseListener.onFailure(error.getMessage());
+                  }
+              });
 
-       // Add tag to request
-       request.setTag(TAG);
+
+              // Add tag to request
+              request.setTag(TAG);
 
        // Get RequestQueue from VolleySingleton
        VolleySingleton.getInstance(App.getContext()).addToRequestQueue(request);

@@ -11,4 +11,5 @@
     <color name="colorWhiteDimGrey">#FAFAFA</color>
     <color name="colorWhiteGreyLight">#F5F5F5</color>
     <color name="colorWhitePrimeGrey">#E0E0E0</color>
+    <color name="colorBlue">#2196F3</color>
 </resources>

@@ -38,7 +38,7 @@ public class StoryEvent {
     private String urlImage;
     private String who;
     private String id;
-
+    private String city;
     private String link;
     private String description;
     private String email;
@@ -117,13 +117,26 @@ public class StoryEvent {
         if(jsonObject.has("link")){
             this.setLink(jsonObject.getString("link"));
         }
+        /**
+         * Get data from venue JSON object
+         */
+        if(jsonObject.has("venue")){
+           JSONObject venue = jsonObject.getJSONObject("venue");
+            if(venue.has("lat") && venue.has("lon")){
+                this.latitude = venue.getInt("lat");
+                this.longnitude = venue.getInt("lon");
+            }
+            if(venue.has("city")){
+                this.city = venue.getString("city");
+            }
+        }
 
     }
 
     public String getName() {
         return name;
     }
-
+    public String getCity(){return city;}
     public void setName(String name) {
         this.name = name;
     }

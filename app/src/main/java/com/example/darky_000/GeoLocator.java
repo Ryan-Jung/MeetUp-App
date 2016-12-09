@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.widget.TextView;
 
-import com.example.darky_000.story_finder.R;
+import com.example.darky_000.R;
 
 
 public class GeoLocator extends StoryActivity {

@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
-import com.example.darky_000.story_finder.R;
+import com.example.darky_000.R;
 
 /**
  * Created by darky_000 on 11/21/2016.

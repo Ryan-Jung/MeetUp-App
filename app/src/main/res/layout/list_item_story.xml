@@ -35,7 +35,7 @@
             android:maxHeight="180dp"
             android:maxWidth="150dp"
             android:padding="4dp"
-            android:src="@mipmap/ic_launcher" />
+           />
 
         <TextView
             android:id="@+id/list_item_story_name_text_view"

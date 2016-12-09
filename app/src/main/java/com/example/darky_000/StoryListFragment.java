@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.example.darky_000.story_finder.R;
-import com.example.darky_000.story_finder.app.App;
-import com.example.darky_000.story_finder.controller.JsonController;
-import com.example.darky_000.story_finder.volley.VolleySingleton;
+import com.example.darky_000.R;
+import com.example.darky_000.app.App;
+import com.example.darky_000.controller.JsonController;
+import com.example.darky_000.volley.VolleySingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,10 +126,12 @@ public class StoryListFragment extends Fragment {
             mNameTextView.setText(mStory.getName());
 
             ImageLoader imageLoader = VolleySingleton.getInstance(App.getContext()).getImageLoader();
-            this.searchImage.setImageUrl(storyEvent.getUrlImage(),imageLoader);
 
-            //mDescriptionTV.setText(mStory.getDescription());
-            //mImageView.setImageDrawable(mStory.getmImage().getDrawable());
+            if(storyEvent.getUrlImage() != null) {
+                this.searchImage.setImageUrl(storyEvent.getUrlImage(), imageLoader);
+            }
+            searchImage.setDefaultImageResId(R.mipmap.ic_launcher);
+
 
         }
 

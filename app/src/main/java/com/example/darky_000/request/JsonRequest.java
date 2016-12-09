@@ -6,7 +6,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.darky_000.story_finder.StoryEvent;
+import com.example.darky_000.StoryEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +36,8 @@ public class JsonRequest extends Request<List<StoryEvent>> {
         super(method, url, errorListener);
         this.successListener = successListener;
     }
+
+
 
     @Override
     protected Response<List<StoryEvent>> parseNetworkResponse(NetworkResponse response) {

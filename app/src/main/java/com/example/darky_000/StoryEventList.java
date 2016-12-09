@@ -15,7 +15,7 @@ public class StoryEventList {
     private static StoryEventList storyEventList;
     private List<StoryEvent> stories;
 
-    private StoryEventList(){};
+    private StoryEventList(){}
 
     public static StoryEventList getInstance(){
         if(storyEventList == null){

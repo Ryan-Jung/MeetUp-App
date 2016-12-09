@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +58,7 @@ public class StoryFragment extends Fragment {
         mDetailField.setText(mStory.getDescription());
         mID.setText("Meet Up Id:" + mStory.getId());
         mLink.setText(mStory.getLink());
-        mRSVPLimit.setText(mStory.getRsvp_limit());
+        mRSVPLimit.setText("Number of Attendances: " + mStory.getRsvp_limit());
 
         ImageLoader imageLoader = VolleySingleton.getInstance(App.getContext()).getImageLoader();
         /**
@@ -69,7 +68,7 @@ public class StoryFragment extends Fragment {
             searchImage.setImageUrl(mStory.getUrlImage(), imageLoader);
         }
         //display default image if no network image is available
-        searchImage.setDefaultImageResId(R.drawable.no_image);
+        searchImage.setDefaultImageResId(R.drawable.noimage);
 
         mLink.setOnClickListener(new View.OnClickListener() {
             /**

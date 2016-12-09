@@ -79,21 +79,6 @@ public class StoryEvent {
 
 
     }
-    public static List<StoryEvent> parseJson(JSONArray jsonArr) throws JSONException{
-        List<StoryEvent> storyEvents = new ArrayList<>();
-
-        if(jsonArr != null) {
-            for (int i = 0; i < jsonArr.length(); i++) {
-                if(i == 3){continue;}
-                //  Create new Story object from each JSONObject in the JSONArray
-                storyEvents.add(new StoryEvent(jsonArr.getJSONObject(i)));
-            }
-        }
-
-        return storyEvents;
-    }
-
-
     private StoryEvent(JSONObject jsonObject) throws JSONException {
 
         if(jsonObject.has("name")){
@@ -111,9 +96,13 @@ public class StoryEvent {
             description = Html.fromHtml(description).toString();
             this.setDescription(description);
 
-            this.setUrlImage(getUrlFromDescription(jsonObject.getString("description")));
-
         }
+
+        if (jsonObject.has("group") && jsonObject.getJSONObject("group").has("photo")) {
+            this.setUrlImage(jsonObject.getJSONObject("group").getJSONObject("photo").
+                    getString("photo_link"));
+        }
+
         if(jsonObject.has("link")){
             this.setLink(jsonObject.getString("link"));
         }
@@ -133,12 +122,32 @@ public class StoryEvent {
 
     }
 
+    public static List<StoryEvent> parseJson(JSONArray jsonArr) throws JSONException {
+        List<StoryEvent> storyEvents = new ArrayList<>();
+
+        if (jsonArr != null) {
+            for (int i = 0; i < jsonArr.length(); i++) {
+                if (i == 3) {
+                    continue;
+                }
+                //  Create new Story object from each JSONObject in the JSONArray
+                storyEvents.add(new StoryEvent(jsonArr.getJSONObject(i)));
+            }
+        }
+
+        return storyEvents;
+    }
+
     public String getName() {
         return name;
     }
-    public String getCity(){return city;}
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public String getId() {
@@ -185,6 +194,10 @@ public class StoryEvent {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     private String getUrlFromDescription(String s){
         String url = "";
         if(s != null){
@@ -196,10 +209,6 @@ public class StoryEvent {
             }
         }
         return url;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getUrlImage() {

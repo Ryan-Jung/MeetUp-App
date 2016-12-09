@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.example.darky_000.R;
 import com.example.darky_000.app.App;
 import com.example.darky_000.controller.JsonController;
 import com.example.darky_000.volley.VolleySingleton;
@@ -110,6 +109,7 @@ public class StoryListFragment extends Fragment {
         private TextView mNameTextView;
         private StoryEvent mStory;
         private NetworkImageView searchImage;
+        private TextView mRSVPView;
 
         public StoryHolder(View itemView) {
             super(itemView);
@@ -118,6 +118,7 @@ public class StoryListFragment extends Fragment {
             mNameTextView = (TextView) itemView.findViewById(R.id.list_item_story_name_text_view);
             //mDescriptionTV = (TextView) itemView.findViewById(R.id.list_item_story_description_text_view);
             searchImage = (NetworkImageView) itemView.findViewById(R.id.list_item_story_image);
+            mRSVPView = (TextView) itemView.findViewById(R.id.list_item_story_rvsp_limit);
 
         }
 
@@ -125,12 +126,14 @@ public class StoryListFragment extends Fragment {
             mStory = storyEvent;
             mNameTextView.setText(mStory.getName());
 
+            mRSVPView.setText("Number of Attendances: " + mStory.getName());
+
             ImageLoader imageLoader = VolleySingleton.getInstance(App.getContext()).getImageLoader();
 
             if(storyEvent.getUrlImage() != null) {
                 this.searchImage.setImageUrl(storyEvent.getUrlImage(), imageLoader);
             }
-            searchImage.setDefaultImageResId(R.drawable.no_image);
+            searchImage.setDefaultImageResId(R.drawable.noimage);
 
 
         }

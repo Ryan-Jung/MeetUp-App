@@ -4,11 +4,10 @@ package com.example.darky_000.controller;
  * Created by darky_000 on 12/5/2016.
  */
 
-import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.darky_000.Api;
 import com.example.darky_000.StoryEvent;
 import com.example.darky_000.app.App;
 import com.example.darky_000.request.JsonRequest;
@@ -47,7 +46,7 @@ public class JsonController {
         int method = Request.Method.GET;
 
         // Url with GET parameters
-        String url = "https://api.meetup.com/find/events?key=783e741d1d3316397c7e3b2b175025b";
+        String url = "https://api.meetup.com/find/events?key=" + Api.apikey + "&fields=group_photo";
 
 
         // Create new request using JsonRequest

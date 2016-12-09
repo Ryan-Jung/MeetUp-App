@@ -1,4 +1,4 @@
-package com.example.darky_000.story_finder;
+package com.example.darky_000;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,16 +9,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
-//import android.widget.Toast;
+
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.example.darky_000.story_finder.R;
+import com.example.darky_000.story_finder.app.App;
+import com.example.darky_000.story_finder.controller.JsonController;
+import com.example.darky_000.story_finder.volley.VolleySingleton;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.darky_000.story_finder.controller.JsonController;
+//import android.widget.Button;
+//import android.widget.Toast;
 
 /**
  * Created by darky_000 on 11/21/2016.
@@ -43,37 +48,16 @@ public class StoryListFragment extends Fragment {
         searchView = (SearchView) view
                 .findViewById(R.id.search_name);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                updateUI(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.length() > 1){
-                    controller.cancelAllRequests();
-                    controller.sendRequest(newText);
-                } else if(newText.equals("")){
-                    mStoryRecyclerView.setVisibility(View.GONE);
-                }
-                updateUI(newText);
-                return false;
-            }
-        });
-        searchView.setIconified(false);
-
+        mAdapter = new StoryAdapter(new ArrayList<StoryEvent>());
+        mStoryRecyclerView.setAdapter(mAdapter);
+        
         controller = new JsonController(
                 new JsonController.OnResponseListener() {
                     @Override
                     public void onSuccess(List<StoryEvent> storyEvents) {
                         if(storyEvents.size() > 0) {
-                            /*textView.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.VISIBLE);
-                            recyclerView.invalidate();
-                            adapter.updateDataSet(movies);
-                            recyclerView.setAdapter(adapter);*/
+                            mAdapter.updateList(storyEvents);
+
                         }
                     }
 
@@ -83,19 +67,31 @@ public class StoryListFragment extends Fragment {
                         //textView.setVisibility(View.VISIBLE);
                         //textView.setText("Failed to retrieve data");
                     }
-                });
+                }
+        );
 
-        /*searchButton = (Button) view
-                .findViewById(R.id.search_button);
-        searchButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                updateUI(String.valueOf(searchView.getQuery()));
-                Toast.makeText(getContext(), "Our Word : " + String.valueOf(searchView.getQuery()),
-                        Toast.LENGTH_SHORT).show();
-                searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
-        });*/
-        //updateUI("");
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //if there is text
+                if (newText.length() > 1){
+                    mStoryRecyclerView.setVisibility(View.VISIBLE);
+                    controller.cancelAllRequests();
+                    controller.sendRequest(newText);
+                } else if(newText.equals("")){
+                    mStoryRecyclerView.setVisibility(View.GONE);
+                }
+                return false;
+            }
+        });
+        searchView.setIconified(false);
+
 
         return view;
     }
@@ -106,55 +102,50 @@ public class StoryListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         searchView.clearFocus();
-        //updateUI();
     }
 
-    private void updateUI(String query) {
-        StoryLab storyLab = StoryLab.get(getActivity());
-        List<Story> stories = storyLab.getStories(query);
-        mAdapter = new StoryAdapter(stories);
-        mStoryRecyclerView.setAdapter(mAdapter);
-    }
 
     private class StoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mNameTextView;
-        private TextView mDescriptionTV;
-        private ImageView mImageView;
-        private Story mStory;
+        private StoryEvent mStory;
+        private NetworkImageView searchImage;
 
         public StoryHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
 
             mNameTextView = (TextView) itemView.findViewById(R.id.list_item_story_name_text_view);
-            mDescriptionTV = (TextView) itemView.findViewById(R.id.list_item_story_description_text_view);
-            mImageView = (ImageView) itemView.findViewById(R.id.list_item_story_image);
+            //mDescriptionTV = (TextView) itemView.findViewById(R.id.list_item_story_description_text_view);
+            searchImage = (NetworkImageView) itemView.findViewById(R.id.list_item_story_image);
+
         }
 
-        public void bindStory(Story story) {
-            mStory = story;
-            mNameTextView.setText(mStory.getmName());
-            mDescriptionTV.setText(mStory.getmDescription());
-            mImageView.setImageDrawable(mStory.getmImage().getDrawable());
+        public void bindStory(StoryEvent storyEvent) {
+            mStory = storyEvent;
+            mNameTextView.setText(mStory.getName());
+
+            ImageLoader imageLoader = VolleySingleton.getInstance(App.getContext()).getImageLoader();
+            this.searchImage.setImageUrl(storyEvent.getUrlImage(),imageLoader);
+
+            //mDescriptionTV.setText(mStory.getDescription());
+            //mImageView.setImageDrawable(mStory.getmImage().getDrawable());
 
         }
 
         @Override
         public void onClick(View v) {
-            /*Toast.makeText(getActivity(),
-                    mStory.getmUuid() + "clicked!", Toast.LENGTH_SHORT)
-                    .show();*/
-            //Intent intent = new Intent(getActivity(), StoryActivity.class);
             Intent intent = StoryActivity.newIntent(getActivity(), mStory.getmUuid());
+            //Save StoryList before starting new activity
+            StoryEventList.getInstance().setList(mAdapter.mStories);
             startActivity(intent);
         }
     }
 
     private class StoryAdapter extends RecyclerView.Adapter<StoryHolder> {
-        private List<Story> mStories;
+        private List<StoryEvent> mStories;
 
-        public StoryAdapter(List<Story> stories) {
+        public StoryAdapter(List<StoryEvent> stories) {
             mStories = stories;
         }
 
@@ -167,14 +158,20 @@ public class StoryListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(StoryHolder holder, int position) {
-            Story story = mStories.get(position);
-            holder.bindStory(story);
+            StoryEvent storyEvent = mStories.get(position);
+            holder.bindStory(storyEvent);
         }
 
         @Override
         public int getItemCount() {
             return mStories.size();
         }
+
+        public void updateList(List<StoryEvent> storyEvents){
+            mStories = storyEvents;
+            notifyDataSetChanged();
+        }
+
 
     }
 }

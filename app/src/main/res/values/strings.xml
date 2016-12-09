@@ -6,6 +6,9 @@
     <string name="image">Image</string>
     <string name="description_etc">Description, etc.</string>
     <string name="name">Name</string>
+    <string name="link">Link</string>
+    <string name="rvsp_limit">Number of Attendances</string>
+    <string name="id">ID</string>
     <string name="search">SEARCH</string>
     <string name="team_26_nstory_finder">Team 26:\nStory Finder</string>
 </resources>

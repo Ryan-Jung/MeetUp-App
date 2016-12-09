@@ -1,4 +1,4 @@
-package com.example.darky_000.story_finder.request;
+package com.example.darky_000.request;
 
 import android.util.Log;
 
@@ -7,8 +7,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.darky_000.story_finder.StoryEvent;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +18,7 @@ import java.util.List;
  * Created by darky_000 on 12/5/2016.
  */
 
-public class JsonRequest extends Request<List<StoryEvent>>{
+public class JsonRequest extends Request<List<StoryEvent>> {
     // Success listener implemented in controller
     private Response.Listener<List<StoryEvent>> successListener;
 

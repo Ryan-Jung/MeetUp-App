@@ -1,18 +1,11 @@
-package com.example.darky_000.story_finder;
+package com.example.darky_000;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONObject;
+import com.example.darky_000.story_finder.R;
 
 /**
  * Created by darky_000 on 11/21/2016.

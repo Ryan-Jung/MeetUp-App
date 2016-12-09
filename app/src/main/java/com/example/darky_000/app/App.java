@@ -1,4 +1,4 @@
-package com.example.darky_000.story_finder.app;
+package com.example.darky_000.app;
 
 /**
  * Created by darky_000 on 12/5/2016.

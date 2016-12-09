@@ -1,14 +1,18 @@
-package com.example.darky_000.story_finder;
+package com.example.darky_000;
+
+
+import android.text.Html;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by darky_000 on 12/4/2016.
@@ -20,7 +24,6 @@ public class StoryEvent {
 
     private int created;
     private int duration;
-    private int id;
     private String name;
     private int rsvp_limit;
     private String status;
@@ -32,22 +35,25 @@ public class StoryEvent {
 
     private int latitude;
     private int longnitude;
-    private String urlname;
+    private String urlImage;
     private String who;
+    private String id;
 
     private String link;
     private String description;
     private String email;
 
 
+    private UUID uuid = UUID.randomUUID();
+
 
     private StoryEvent(){
 
     }
 
-    public StoryEvent(int created, int duration, int id, String name, int rsvp_limit,
+    public StoryEvent(int created, int duration, String id, String name, int rsvp_limit,
                       String status, int time, int updated, int utc, int waitlist,
-                      int rsvp_count, int latitude, int longnitude, String urlname,
+                      int rsvp_count, int latitude, int longnitude, String urlImage,
                       String who, String link, String description, String email,
                       String visibility){
         this.created = created;
@@ -68,34 +74,49 @@ public class StoryEvent {
 
         this.latitude = latitude;
         this.longnitude = longnitude;
-        this.urlname = urlname;
+        this.urlImage = urlImage;
         this.who = who;
 
 
     }
     public static List<StoryEvent> parseJson(JSONArray jsonArr) throws JSONException{
         List<StoryEvent> storyEvents = new ArrayList<>();
-        // Check if the JSONObject has object with key "Search"
-        JSONObject jsonObject = jsonArr.getJSONObject(0);
-        if(jsonObject.has("created")){
-            // Get JSONArray from JSONObject
-            JSONArray jsonArray = jsonObject.getJSONArray("created");
-            for(int i = 0; i < jsonArray.length(); i++){
-            //    // Create new Story object from each JSONObject in the JSONArray
-                storyEvents.add(new StoryEvent(jsonArray.getJSONObject(i)));
-            }
 
+        if(jsonArr != null) {
+            for (int i = 0; i < jsonArr.length(); i++) {
+                if(i == 3){continue;}
+                //  Create new Story object from each JSONObject in the JSONArray
+                storyEvents.add(new StoryEvent(jsonArr.getJSONObject(i)));
+            }
         }
 
         return storyEvents;
     }
 
+
     private StoryEvent(JSONObject jsonObject) throws JSONException {
-        if(jsonObject.has("name")) this.setName (jsonObject.getString("name"));
-        if(jsonObject.has("id")) this.setId(jsonObject.getInt("id"));
-        if(jsonObject.has("yes_rsvp_count")) this.setRsvp_limit(jsonObject.getInt("yes_rsvp_count"));
-        if(jsonObject.has("description")) this.setDescription(jsonObject.getString("description"));
-        if(jsonObject.has("link")) this.setLink(jsonObject.getString("link"));
+
+        if(jsonObject.has("name")){
+            this.setName(jsonObject.getString("name"));
+        }
+        if(jsonObject.has("id")){
+            this.setId(jsonObject.getString("id"));
+        }
+        if(jsonObject.has("yes_rsvp_count")){
+            this.setRsvp_limit(jsonObject.getInt("yes_rsvp_count"));
+        }
+        if(jsonObject.has("description")){
+            String description = jsonObject.getString("description");
+            Log.i("SET DESCRIPTION", description );
+            description = Html.fromHtml(description).toString();
+            this.setDescription(description);
+
+            this.setUrlImage(getUrlFromDescription(jsonObject.getString("description")));
+
+        }
+        if(jsonObject.has("link")){
+            this.setLink(jsonObject.getString("link"));
+        }
 
     }
 
@@ -107,16 +128,16 @@ public class StoryEvent {
         this.name = name;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getRsvp_limit() {
-        return rsvp_limit;
+    public String getRsvp_limit() {
+        return String.valueOf(rsvp_limit);
     }
 
     public void setRsvp_limit(int rsvp_limit) {
@@ -151,16 +172,29 @@ public class StoryEvent {
         return description;
     }
 
+    private String getUrlFromDescription(String s){
+        String url = "";
+        if(s != null){
+            Pattern pattern = Pattern.compile(
+                    "(.*)(img src=\"(.*(jpeg|jpg|png))\")(.*)");
+            Matcher matcher = pattern.matcher(s);
+            if(s.contains("img src") && matcher.find()){
+                url = matcher.group(3);
+            }
+        }
+        return url;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getUrlname() {
-        return urlname;
+    public String getUrlImage() {
+        return urlImage;
     }
 
-    public void setUrlname(String urlname) {
-        this.urlname = urlname;
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 
     public String getEmail() {
@@ -169,6 +203,10 @@ public class StoryEvent {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UUID getmUuid(){
+        return uuid;
     }
 }
 

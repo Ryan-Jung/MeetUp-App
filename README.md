@@ -1,4 +1,4 @@
-#Project-2 Final
+#Project-2 Story Finder Final
 #### Team Number
 Team #26
 #### Team Members

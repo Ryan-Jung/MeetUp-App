@@ -1,18 +1,18 @@
-package com.example.darky_000.story_finder.controller;
+package com.example.darky_000.controller;
 
 /**
  * Created by darky_000 on 12/5/2016.
  */
 
-import android.net.Uri;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.darky_000.story_finder.StoryEvent;
+import com.example.darky_000.story_finder.app.App;
 import com.example.darky_000.story_finder.request.JsonRequest;
 import com.example.darky_000.story_finder.volley.VolleySingleton;
-import com.example.darky_000.story_finder.app.App;
 
 import java.util.List;
 
@@ -59,6 +59,7 @@ public class JsonController {
                  @Override
                  public void onResponse(List<StoryEvent> movies) {
                      responseListener.onSuccess(movies);
+                     Log.d("JSON", movies.get(0).getName());
                  }
              },
              new Response.ErrorListener() {

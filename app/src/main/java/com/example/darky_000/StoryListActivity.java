@@ -1,4 +1,4 @@
-package com.example.darky_000.story_finder;
+package com.example.darky_000;
 
 import android.support.v4.app.Fragment;
 

@@ -1,4 +1,4 @@
-package com.example.darky_000.story_finder;
+package com.example.darky_000;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,26 +1,21 @@
-package com.example.darky_000.story_finder;
+package com.example.darky_000;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import java.util.List;
+import com.example.darky_000.story_finder.R;
 
 /**
  * Created by darky_000 on 11/24/2016.
  */
 
-public class Splash_Screen extends AppCompatActivity{
+public class Splash_Screen extends AppCompatActivity {
 
-    private void runOn() {
-        StoryLab.get(Splash_Screen.this);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        runOn();
         setContentView(R.layout.splash_screen);
 
         Thread timerThread = new Thread(){

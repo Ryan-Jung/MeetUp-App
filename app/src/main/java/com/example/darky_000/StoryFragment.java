@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,7 @@ public class StoryFragment extends Fragment {
             searchImage.setImageUrl(mStory.getUrlImage(), imageLoader);
         }
         //display default image if no network image is available
-        searchImage.setDefaultImageResId(R.mipmap.ic_launcher);
+        searchImage.setDefaultImageResId(R.drawable.no_image);
 
         mLink.setOnClickListener(new View.OnClickListener() {
             /**

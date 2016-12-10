@@ -33,10 +33,11 @@ public class StoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mStory = StoryEvent.get();
         UUID storyId = (UUID) getActivity().getIntent()
                 .getSerializableExtra(StoryActivity.EXTRA_STORY_ID);
 
-        mStory = StoryEventList.getInstance().getStoryEvent(storyId);
+        mStory = mStory.getStoryEvent(storyId);
 
     }
 
@@ -52,7 +53,10 @@ public class StoryFragment extends Fragment {
         mRSVPLimit = (TextView) v.findViewById(R.id.story_rsvp_limit);
         searchImage = (NetworkImageView) v.findViewById(R.id.nivImage);
 
-        mTitleField.setText(mStory.getName());
+        if (mStory.getName() != null) {
+            mTitleField.setText(mStory.getName());
+        }
+
         mDetailField.setText(mStory.getDescription());
         mID.setText("Meet Up Id:" + mStory.getId());
         mLink.setText(mStory.getLink());

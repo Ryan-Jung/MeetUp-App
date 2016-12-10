@@ -157,6 +157,19 @@ public class StoryEvent {
         return filteredEvents;
     }
 
+    public StoryEvent getStoryEvent(UUID uuid) {
+        StoryEvent storyEvent = null;
+
+        if (storyEvents != null) {
+            for (StoryEvent story : storyEvents) {
+                if (story.getmUuid().equals(uuid)) {
+                    storyEvent = story;
+                }
+            }
+        }
+        return storyEvent;
+    }
+
     public String getName() {
         return name;
     }

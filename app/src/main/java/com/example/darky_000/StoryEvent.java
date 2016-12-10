@@ -2,11 +2,12 @@ package com.example.darky_000;
 
 
 import android.text.Html;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,10 +92,13 @@ public class StoryEvent {
             this.setRsvp_limit(jsonObject.getInt("yes_rsvp_count"));
         }
         if(jsonObject.has("description")){
-            String description = jsonObject.getString("description");
-            Log.i("SET DESCRIPTION", description );
-            description = Html.fromHtml(description).toString();
+            //String description = jsonObject.getString("description");
+            Document document = Jsoup.parse(jsonObject.getString("description"));
+            document.select("img").remove();
+//            Log.i("SET DESCRIPTION", description );
+            description = Html.fromHtml(document.toString()).toString();
             this.setDescription(description);
+
 
         }
 

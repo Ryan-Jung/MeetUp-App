@@ -117,7 +117,7 @@ public class StoryListFragment extends Fragment {
 
             mNameTextView = (TextView) itemView.findViewById(R.id.list_item_story_name_text_view);
             //mDescriptionTV = (TextView) itemView.findViewById(R.id.list_item_story_description_text_view);
-            searchImage = (NetworkImageView) itemView.findViewById(R.id.list_item_story_image);
+            searchImage = (NetworkImageView) itemView.findViewById(R.id.nivImage);
             mRSVPView = (TextView) itemView.findViewById(R.id.list_item_story_rvsp_limit);
 
         }
@@ -126,7 +126,7 @@ public class StoryListFragment extends Fragment {
             mStory = storyEvent;
             mNameTextView.setText(mStory.getName());
 
-            mRSVPView.setText("Number of Attendances: " + mStory.getName());
+            mRSVPView.setText("Number of Attendances: " + mStory.getRsvp_limit());
 
             ImageLoader imageLoader = VolleySingleton.getInstance(App.getContext()).getImageLoader();
 

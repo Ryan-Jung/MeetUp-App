@@ -3,12 +3,12 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="275dp"
 
-    android:layout_marginTop="16dp"
-    android:layout_marginLeft="16dp"
     android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp"
 
     android:adjustViewBounds="true"
     android:scaleType="fitCenter"
@@ -23,10 +23,9 @@
         android:background="@color/colorWhite"
         android:padding="16dp">
 
-
         <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/list_item_story_image"
-            android:layout_width="wrap_content"
+            android:id="@+id/nivImage"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -35,19 +34,22 @@
             android:maxHeight="180dp"
             android:maxWidth="150dp"
             android:padding="4dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/noimage"
            />
 
         <TextView
             android:id="@+id/list_item_story_name_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/list_item_story_image"
-            android:layout_toStartOf="@id/list_item_story_image"
-            android:textColor="@color/colorBlack"
-            android:textSize="24sp"
-            android:paddingTop="24dp"
+            android:layout_toLeftOf="@id/nivImage"
+            android:layout_toStartOf="@id/nivImage"
+            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:paddingTop="24dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"
             android:textStyle="bold"
             tools:text="@string/name" />
 
@@ -57,14 +59,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/list_item_story_name_text_view"
-            android:layout_toLeftOf="@id/list_item_story_image"
-            android:layout_toStartOf="@id/list_item_story_image"
-            android:textColor="@color/colorBlack"
-            android:textSize="14sp"
-            android:paddingTop="16dp"
-            android:paddingBottom="24dp"
+            android:layout_toLeftOf="@id/nivImage"
+            android:layout_toStartOf="@id/nivImage"
+            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:paddingTop="24dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
             tools:text="@string/rvsp_limit" />
 
     </RelativeLayout>

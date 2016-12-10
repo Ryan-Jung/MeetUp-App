@@ -87,14 +87,15 @@
                     android:textSize="24sp"
                     android:textStyle="bold"
                     />
+
                 <TextView
                     android:id="@+id/story_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:textColor="@color/cardview_light_background"
+                    android:textColor="@color/colorBlack"
                     android:textSize="16sp"
-                    tools:text="the id" />
+                    tools:text="@string/id" />
 
 
                 <TextView

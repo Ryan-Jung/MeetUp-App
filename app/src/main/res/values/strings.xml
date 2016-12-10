@@ -8,7 +8,7 @@
     <string name="name">Name</string>
     <string name="link">Link</string>
     <string name="rvsp_limit">Number of Attendances</string>
-    <string name="id">ID</string>
+    <string name="id">ID: </string>
     <string name="search">SEARCH</string>
     <string name="team_26_nstory_finder">Team 26:\nStory Finder</string>
     <string name="view_more_button">View More!</string>

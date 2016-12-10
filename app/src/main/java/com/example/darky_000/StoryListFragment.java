@@ -53,7 +53,7 @@ public class StoryListFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                updateUI(query);
+                searchView.clearFocus();
                 return false;
             }
 

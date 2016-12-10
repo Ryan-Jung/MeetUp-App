@@ -34,19 +34,15 @@ public class JsonController {
   public JsonController(OnResponseListener responseListener) {
       this.responseListener = responseListener;
   }
-
-    /**
-     * Adds request to volley request queue
-     *
-     * @param query query term for search
-     */
-    public void sendRequest(String query) {
+    
+    public void sendRequest(String lat, String lon) {
 
         // Request Method
         int method = Request.Method.GET;
 
         // Url with GET parameters
-        String url = "https://api.meetup.com/find/events?key=" + Api.apikey + "&fields=group_photo";
+        String url = "https://api.meetup.com/find/events?key=" + Api.apikey + "&fields=group_photo"
+                + "&lat=" + lat + "&lon=" + lon;
 
 
         // Create new request using JsonRequest

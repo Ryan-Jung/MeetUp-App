@@ -11,9 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.darky_000.app.App;
+import com.example.darky_000.controller.JsonController;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+
+import java.util.List;
 
 /**
  * Created by darky_000 on 11/24/2016.
@@ -24,11 +27,33 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
     Location mLastLocation;
     String latitude;
     String longitude;
+    JsonController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+
+        StoryEvent.get();
+
+        controller = new JsonController(
+                new JsonController.OnResponseListener() {
+                    @Override
+                    public void onSuccess(List<StoryEvent> storyEvents) {
+                        Intent intent = new Intent(Splash_Screen.this, StoryListActivity.class);
+
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(String errorMessage) {
+                        Log.e("onFailure", errorMessage);
+                        //textView.setVisibility(View.VISIBLE);
+                        //textView.setText("Failed to retrieve data");
+                    }
+                }
+        );
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -85,6 +110,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                 longitude = String.valueOf(mLastLocation.getLongitude());
                 Log.i("mylatitude", latitude);
                 Log.i("mylatitude", longitude);
+                controller.sendRequest(latitude, longitude);
             }
         }
     }

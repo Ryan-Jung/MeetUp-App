@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,7 @@ import java.util.List;
  */
 
 public class StoryListFragment extends Fragment {
+    StoryEvent storyEvent;
     private RecyclerView mStoryRecyclerView;
     private StoryAdapter mAdapter;
     private SearchView searchView;
@@ -49,43 +49,18 @@ public class StoryListFragment extends Fragment {
 
         mAdapter = new StoryAdapter(new ArrayList<StoryEvent>());
         mStoryRecyclerView.setAdapter(mAdapter);
-        
-        controller = new JsonController(
-                new JsonController.OnResponseListener() {
-                    @Override
-                    public void onSuccess(List<StoryEvent> storyEvents) {
-                        if(storyEvents.size() > 0) {
-                            mAdapter.updateList(storyEvents);
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(String errorMessage) {
-                        Log.e("onFailure",errorMessage);
-                        //textView.setVisibility(View.VISIBLE);
-                        //textView.setText("Failed to retrieve data");
-                    }
-                }
-        );
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                updateUI(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 //if there is text
-                if (newText.length() > 1){
-                    mStoryRecyclerView.setVisibility(View.VISIBLE);
-                    controller.cancelAllRequests();
-                    controller.sendRequest(newText);
-                } else if(newText.equals("")){
-                    mStoryRecyclerView.setVisibility(View.GONE);
-                }
+                updateUI(newText);
                 return false;
             }
         });
@@ -93,6 +68,14 @@ public class StoryListFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void updateUI(String query) {
+        storyEvent = StoryEvent.get();
+        List<StoryEvent> storyEvents = storyEvent.getStoryEvents(query);
+        StoryAdapter mAdapter;
+        mAdapter = new StoryAdapter(storyEvents);
+        mStoryRecyclerView.setAdapter(mAdapter);
     }
 
 

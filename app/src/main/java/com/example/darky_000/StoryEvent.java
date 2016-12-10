@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 public class StoryEvent {
 
+    private static List<StoryEvent> storyEvents = new ArrayList<>();
     private int created;
     private int duration;
     private String name;
@@ -33,7 +34,6 @@ public class StoryEvent {
     private int utc;
     private int waitlist;
     private int rsvp_count;
-
     private int latitude;
     private int longnitude;
     private String urlImage;
@@ -43,8 +43,6 @@ public class StoryEvent {
     private String link;
     private String description;
     private String email;
-
-
     private UUID uuid = UUID.randomUUID();
 
 
@@ -127,7 +125,6 @@ public class StoryEvent {
     }
 
     public static List<StoryEvent> parseJson(JSONArray jsonArr) throws JSONException {
-        List<StoryEvent> storyEvents = new ArrayList<>();
 
         if (jsonArr != null) {
             for (int i = 0; i < jsonArr.length(); i++) {
@@ -140,6 +137,24 @@ public class StoryEvent {
         }
 
         return storyEvents;
+    }
+
+    public static StoryEvent get() {
+        StoryEvent storyEvent = new StoryEvent();
+        if (storyEvent == null) {
+            storyEvent = new StoryEvent();
+        }
+        return storyEvent;
+    }
+
+    public List<StoryEvent> getStoryEvents(String query) {
+        ArrayList<StoryEvent> filteredEvents = new ArrayList<>();
+        for (StoryEvent storyEvent : storyEvents) {
+            if (!query.isEmpty() && storyEvent.getName().contains(query)) {
+                filteredEvents.add(storyEvent);
+            }
+        }
+        return filteredEvents;
     }
 
     public String getName() {

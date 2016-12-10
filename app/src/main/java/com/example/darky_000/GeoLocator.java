@@ -13,27 +13,32 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.widget.TextView;
+import android.util.Log;
 
-import com.example.darky_000.R;
+import com.example.darky_000.app.App;
 
+//Use
 
-public class GeoLocator extends StoryActivity {
+public class GeoLocator {
 
-    TextView textLat;
-    TextView textLong;
+//    TextView textLat;
+//    TextView textLong;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen);
+    private String lat;
+    private String lon;
 
-        textLat = (TextView) findViewById(R.id.textLat);
-        textLong = (TextView) findViewById(R.id.textLong);
+    //    @Override
+    GeoLocator() {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.geolocation);
+//
+//        textLat = (TextView) findViewById(R.id.textLat);
+//        textLong = (TextView) findViewById(R.id.textLong);
 
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) App.getContext().getSystemService(Context.LOCATION_SERVICE);
         LocationListener ll = new mylocationlistener();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(App.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(App.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -41,10 +46,42 @@ public class GeoLocator extends StoryActivity {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
+
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null) {
+                double pLong = location.getLongitude();
+                double pLat = location.getLatitude();
+
+//                 textLat.setText(Double.toString(pLat));
+//                 textLong.setText(Double.toString(pLong));
+
+                setLat(Double.toString(pLat));
+                setLon(Double.toString(pLong));
+
+                Log.i("latlon", pLat + " " + pLong);
+            }
+
         }
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+
     }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
+
      class mylocationlistener implements LocationListener {
 
          @Override
@@ -53,8 +90,13 @@ public class GeoLocator extends StoryActivity {
                  double pLong = location.getLongitude();
                  double pLat = location.getLatitude();
 
-                 textLat.setText(Double.toString(pLat));
-                 textLong.setText(Double.toString(pLong));
+//                 textLat.setText(Double.toString(pLat));
+//                 textLong.setText(Double.toString(pLong));
+
+                 setLat(Double.toString(pLat));
+                 setLon(Double.toString(pLong));
+
+                 Log.i("latlon", pLat + " " + pLong);
              }
          }
 

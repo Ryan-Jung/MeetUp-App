@@ -15,13 +15,6 @@ import com.example.darky_000.volley.VolleySingleton;
 
 import java.util.List;
 
-/*
- * Created by abhijit on 12/2/16.
- */
-
-/**
- * <p> Provides interface between {@link android.app.Activity} and {@link com.android.volley.toolbox.Volley} </p>
- */
 public class JsonController {
 
     private final int TAG = 100;
@@ -71,18 +64,6 @@ public class JsonController {
        VolleySingleton.getInstance(App.getContext()).addToRequestQueue(request);
     }
 
-   /**
-    * <p>Cancels all request pending in request queue,</p>
-    * <p> There is no way to control the request already processed</p>
-    */
-   public void cancelAllRequests() {
-       VolleySingleton.getInstance(App.getContext()).cancelAllRequests(TAG);
-   }
-
-//    /**
-//     * Interface to communicate between {@link android.app.Activity} and {@link JsonRequest}
-//     * <p>Object available in {@link JsonRequest} and implemented in {@link com.example.csc413_volley_template.MainActivity}</p>
-//     */
   public interface OnResponseListener {
       void onSuccess(List<StoryEvent> storyEvents);
 

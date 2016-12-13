@@ -14,14 +14,10 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.example.darky_000.app.App;
-import com.example.darky_000.controller.JsonController;
 import com.example.darky_000.volley.VolleySingleton;
 
 import java.util.ArrayList;
 import java.util.List;
-
-//import android.widget.Button;
-//import android.widget.Toast;
 
 /**
  * Created by darky_000 on 11/21/2016.
@@ -32,8 +28,7 @@ public class StoryListFragment extends Fragment {
     private RecyclerView mStoryRecyclerView;
     private StoryAdapter mAdapter;
     private SearchView searchView;
-    private JsonController controller;
-    //private Button searchButton;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -99,7 +94,6 @@ public class StoryListFragment extends Fragment {
             itemView.setOnClickListener(this);
 
             mNameTextView = (TextView) itemView.findViewById(R.id.list_item_story_name_text_view);
-            //mDescriptionTV = (TextView) itemView.findViewById(R.id.list_item_story_description_text_view);
             searchImage = (NetworkImageView) itemView.findViewById(R.id.nivImage);
             mRSVPView = (TextView) itemView.findViewById(R.id.list_item_story_rvsp_limit);
 

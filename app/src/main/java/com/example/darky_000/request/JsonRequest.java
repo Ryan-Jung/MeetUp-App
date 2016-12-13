@@ -46,22 +46,16 @@ public class JsonRequest extends Request<List<StoryEvent>> {
         List<StoryEvent> storyEvents;
         JSONObject jsonObject;
         Log.i(this.getClass().getName(), jsonString);
-        // Try to convert JsonString to list of movies
         try {
-            // Convert JsonString to JSONObject
-            //jsonObject = new JSONObject(jsonString);
             JSONArray jsonArr = new JSONArray(jsonString);
 
-            // Get list of events from received JSON
             storyEvents = StoryEvent.parseJson(jsonArr);
         }
-        // in case of exception, return volley error
         catch (JSONException e) {
             e.printStackTrace();
             // return new volley error with message
             return Response.error(new VolleyError("Failed to process the request"));
         }
-        // return list of movies
         return Response.success(storyEvents, getCacheEntry());
     }
 

@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -61,29 +59,36 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
+
+
         }
 
-
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(3000);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    Intent intent = new Intent(Splash_Screen.this,StoryListActivity.class);
-                    startActivity(intent);
-                }
-            }
-        };
-
-        timerThread.start();
+//        Thread timerThread = new Thread(){
+//            public void run(){
+//                try{
+//                    sleep(10000);
+//                }catch(InterruptedException e){
+//                    e.printStackTrace();
+//                }finally{
+//                    Intent intent = new Intent(Splash_Screen.this,StoryListActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        };
+//
+//        timerThread.start();
     }
 
 
     protected void onStart() {
         mGoogleApiClient.connect();
         super.onStart();
+
+        // for physical device
+//        getLocation();
+
+        // for emulator
+        getLocation("37.7216269", "-122.4766322");
     }
 
     protected void onStop() {
@@ -99,8 +104,12 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
 
 
     @Override
-    public void onConnected(@Nullable Bundle connectionHint) {
+    public void onConnected(Bundle connectionHint) {
 
+        getLocation();
+    }
+
+    private void getLocation() {
         if (ContextCompat.checkSelfPermission(App.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
@@ -115,13 +124,19 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
+
+    private void getLocation(String latitude, String longitude) {
+
+        controller.sendRequest(latitude, longitude);
+    }
+
     @Override
     public void onConnectionSuspended(int i) {
 
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
 }

@@ -12,8 +12,6 @@ import org.jsoup.nodes.Document;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by darky_000 on 12/4/2016.
@@ -24,25 +22,17 @@ import java.util.regex.Pattern;
 public class StoryEvent {
 
     private static List<StoryEvent> storyEvents = new ArrayList<>();
-    private int created;
-    private int duration;
+
     private String name;
     private int rsvp_limit;
-    private String status;
-    private int time;
-    private int updated;
-    private int utc;
-    private int waitlist;
-    private int rsvp_count;
+
     private int latitude;
     private int longnitude;
     private String urlImage;
-    private String who;
+
     private String id;
-    private String city;
     private String link;
     private String description;
-    private String email;
     private UUID uuid = UUID.randomUUID();
 
 
@@ -50,34 +40,6 @@ public class StoryEvent {
 
     }
 
-    public StoryEvent(int created, int duration, String id, String name, int rsvp_limit,
-                      String status, int time, int updated, int utc, int waitlist,
-                      int rsvp_count, int latitude, int longnitude, String urlImage,
-                      String who, String link, String description, String email,
-                      String visibility){
-        this.created = created;
-        this.duration = duration;
-        this.id = id;
-        this.name = name;
-        this.rsvp_limit = rsvp_limit;
-        this.status = status;
-        this.time = time;
-        this.updated = updated;
-        this.utc = utc;
-        this.waitlist = waitlist;
-        this.rsvp_count = rsvp_count;
-
-        this.link = link;
-        this.description = description;
-        this.email = email;
-
-        this.latitude = latitude;
-        this.longnitude = longnitude;
-        this.urlImage = urlImage;
-        this.who = who;
-
-
-    }
     private StoryEvent(JSONObject jsonObject) throws JSONException {
 
         if(jsonObject.has("name")){
@@ -107,19 +69,6 @@ public class StoryEvent {
 
         if(jsonObject.has("link")){
             this.setLink(jsonObject.getString("link"));
-        }
-        /**
-         * Get data from venue JSON object
-         */
-        if(jsonObject.has("venue")){
-           JSONObject venue = jsonObject.getJSONObject("venue");
-            if(venue.has("lat") && venue.has("lon")){
-                this.latitude = venue.getInt("lat");
-                this.longnitude = venue.getInt("lon");
-            }
-            if(venue.has("city")){
-                this.city = venue.getString("city");
-            }
         }
 
     }
@@ -178,10 +127,6 @@ public class StoryEvent {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
-    }
-
     public String getId() {
         return id;
     }
@@ -196,22 +141,6 @@ public class StoryEvent {
 
     public void setRsvp_limit(int rsvp_limit) {
         this.rsvp_limit = rsvp_limit;
-    }
-
-    public int getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(int latitude) {
-        this.latitude = latitude;
-    }
-
-    public int getLongnitude() {
-        return longnitude;
-    }
-
-    public void setLongnitude(int longnitude) {
-        this.longnitude = longnitude;
     }
 
     public String getLink() {
@@ -230,7 +159,7 @@ public class StoryEvent {
         this.description = description;
     }
 
-    private String getUrlFromDescription(String s){
+    /*private String getUrlFromDescription(String s){
         String url = "";
         if(s != null){
             Pattern pattern = Pattern.compile(
@@ -241,7 +170,7 @@ public class StoryEvent {
             }
         }
         return url;
-    }
+    }*/
 
     public String getUrlImage() {
         return urlImage;
@@ -249,14 +178,6 @@ public class StoryEvent {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public UUID getmUuid(){

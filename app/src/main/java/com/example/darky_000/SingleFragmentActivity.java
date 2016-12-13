@@ -1,5 +1,7 @@
 package com.example.darky_000;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -38,6 +40,12 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
             Toast.makeText(this, "Network is available", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(this,"Network is not available", Toast.LENGTH_LONG).show();
+        }
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Toast.makeText(this, "Location is enabled", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Location is disabled please turn it on!", Toast.LENGTH_LONG).show();
         }
     }
 

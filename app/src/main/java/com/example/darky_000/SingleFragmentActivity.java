@@ -1,9 +1,12 @@
 package com.example.darky_000;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.widget.Toast;
 
 import com.example.darky_000.R;
 
@@ -28,6 +31,13 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();
+        }
+        ConnectivityManager cManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo nInfo = cManager.getActiveNetworkInfo();
+        if(nInfo!=null && nInfo.isConnected()){
+            Toast.makeText(this, "Network is available", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this,"Network is not available", Toast.LENGTH_LONG).show();
         }
     }
 

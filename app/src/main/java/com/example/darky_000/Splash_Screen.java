@@ -70,24 +70,10 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
 
         }
 
-//        Thread timerThread = new Thread(){
-//            public void run(){
-//                try{
-//                    sleep(10000);
-//                }catch(InterruptedException e){
-//                    e.printStackTrace();
-//                }finally{
-//                    Intent intent = new Intent(Splash_Screen.this,StoryListActivity.class);
-//                    startActivity(intent);
-//                }
-//            }
-//        };
-//
-//        timerThread.start();
         ConnectivityManager cManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo nInfo = cManager.getActiveNetworkInfo();
         if(nInfo!=null && nInfo.isConnected()){
-            Toast.makeText(this, "Network is available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Network is available", Toast.LENGTH_SHORT).show();
         }else {
             // Toast.makeText(this, "Network is not available", Toast.LENGTH_LONG).show();
             final AlertDialog.Builder buildObj2 = new AlertDialog.Builder(this);
@@ -111,7 +97,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            Toast.makeText(this, "Location is enabled", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Location is enabled", Toast.LENGTH_SHORT).show();
         } else {
             final AlertDialog.Builder buildObj = new AlertDialog.Builder(this);
             buildObj.setMessage("Location disabled, do you want to enable it?")
@@ -140,7 +126,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
 //        getLocation();
 
         // for emulator
-        getLocation("37.7216269", "-122.4766322");
+//        getLocation("37.7216269", "-122.4766322");
     }
 
     protected void onStop() {
@@ -171,6 +157,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                 longitude = String.valueOf(mLastLocation.getLongitude());
                 Log.i("mylatitude", latitude);
                 Log.i("mylatitude", longitude);
+                Toast.makeText(this, "Display Events at Location: " + latitude + ", " + longitude, Toast.LENGTH_LONG).show();
                 controller.sendRequest(latitude, longitude);
             }
         }

@@ -54,7 +54,10 @@ public class StoryEvent {
         if(jsonObject.has("description")){
             //String description = jsonObject.getString("description");
             Document document = Jsoup.parse(jsonObject.getString("description"));
+            //remove <img> tags
             document.select("img").remove();
+            //remove "<a> tags
+            document.select("a").remove();
 //            Log.i("SET DESCRIPTION", description );
             description = Html.fromHtml(document.toString()).toString();
             this.setDescription(description);

@@ -80,9 +80,6 @@ public class StoryEvent {
 
         if (jsonArr != null) {
             for (int i = 0; i < jsonArr.length(); i++) {
-                if (i == 3) {
-                    continue;
-                }
                 //  Create new Story object from each JSONObject in the JSONArray
                 storyEvents.add(new StoryEvent(jsonArr.getJSONObject(i)));
             }
@@ -101,11 +98,12 @@ public class StoryEvent {
 
     public List<StoryEvent> getStoryEvents(String query) {
         ArrayList<StoryEvent> filteredEvents = new ArrayList<>();
+        if(query.isEmpty()){
+            return storyEvents;
+        }
         for (StoryEvent storyEvent : storyEvents) {
             if (!query.isEmpty() && storyEvent.getName().contains(query)) {
                 filteredEvents.add(storyEvent);
-            }else if(query.isEmpty()){
-                return storyEvents;
             }
         }
         return filteredEvents;

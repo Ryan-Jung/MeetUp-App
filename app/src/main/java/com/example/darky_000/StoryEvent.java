@@ -101,6 +101,8 @@ public class StoryEvent {
         for (StoryEvent storyEvent : storyEvents) {
             if (!query.isEmpty() && storyEvent.getName().contains(query)) {
                 filteredEvents.add(storyEvent);
+            }else if(query.isEmpty()){
+                return storyEvents;
             }
         }
         return filteredEvents;

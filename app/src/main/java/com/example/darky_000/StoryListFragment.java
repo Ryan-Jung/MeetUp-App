@@ -42,7 +42,7 @@ public class StoryListFragment extends Fragment {
         searchView = (SearchView) view
                 .findViewById(R.id.search_name);
 
-        mAdapter = new StoryAdapter(new ArrayList<StoryEvent>());
+        mAdapter = new StoryAdapter(storyEvent.get().getStoryEvents(" "));
         mStoryRecyclerView.setAdapter(mAdapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

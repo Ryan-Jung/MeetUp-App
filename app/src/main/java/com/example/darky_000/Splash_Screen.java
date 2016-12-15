@@ -120,10 +120,10 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
         super.onStart();
 
         // for physical device
-//        getLocation();
+        // getLocation();
 
         // for emulator
-//        getLocation("37.7216269", "-122.4766322");
+           getLocation("37.7216269", "-122.4766322");
     }
 
     protected void onStop() {

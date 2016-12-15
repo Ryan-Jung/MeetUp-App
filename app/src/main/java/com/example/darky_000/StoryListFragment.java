@@ -148,12 +148,5 @@ public class StoryListFragment extends Fragment {
         public int getItemCount() {
             return mStories.size();
         }
-
-        public void updateList(List<StoryEvent> storyEvents){
-            mStories = storyEvents;
-            notifyDataSetChanged();
-        }
-
-
     }
 }

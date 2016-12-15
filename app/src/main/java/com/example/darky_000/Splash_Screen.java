@@ -54,8 +54,6 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onFailure(String errorMessage) {
                         Log.e("onFailure", errorMessage);
-                        //textView.setVisibility(View.VISIBLE);
-                        //textView.setText("Failed to retrieve data");
                     }
                 }
         );
@@ -75,7 +73,6 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
         if(nInfo!=null && nInfo.isConnected()){
             Toast.makeText(this, "Network is available", Toast.LENGTH_SHORT).show();
         }else {
-            // Toast.makeText(this, "Network is not available", Toast.LENGTH_LONG).show();
             final AlertDialog.Builder buildObj2 = new AlertDialog.Builder(this);
             buildObj2.setMessage("Network is disabled, do you want to enable it?")
                     .setCancelable(false)

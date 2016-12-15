@@ -27,23 +27,4 @@ public class StoryEventList {
     public void setList(List<StoryEvent> stories){
         this.stories = stories;
     }
-
-    /**
-     * Find a specific story given an id.
-     * @param uuid
-     * @return
-     */
-    public StoryEvent getStoryEvent(UUID uuid){
-        StoryEvent storyEvent = null;
-
-        if(stories != null){
-            for(StoryEvent story : stories){
-                if(story.getmUuid().equals(uuid)){
-                    storyEvent = story;
-                }
-            }
-        }
-        return storyEvent;
-    }
-
 }

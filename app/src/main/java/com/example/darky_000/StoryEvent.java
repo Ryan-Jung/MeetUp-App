@@ -162,19 +162,6 @@ public class StoryEvent {
         this.description = description;
     }
 
-    /*private String getUrlFromDescription(String s){
-        String url = "";
-        if(s != null){
-            Pattern pattern = Pattern.compile(
-                    "(.*)(img src=\"(.*(jpeg|jpg|png))\")(.*)");
-            Matcher matcher = pattern.matcher(s);
-            if(s.contains("img src") && matcher.find()){
-                url = matcher.group(3);
-            }
-        }
-        return url;
-    }*/
-
     public String getUrlImage() {
         return urlImage;
     }

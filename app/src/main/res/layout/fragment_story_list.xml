@@ -37,21 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
-            <!--android:layout_toLeftOf="@+id/search_button"
-            android:layout_toStartOf="@+id/search_button"
-
-            />
-            -->
-
-        <!-- <Button
-             android:id="@+id/search_button"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignParentEnd="true"
-             android:layout_alignParentRight="true"
-             android:text="@string/search"
-             />
-             -->
 
      </RelativeLayout>
 

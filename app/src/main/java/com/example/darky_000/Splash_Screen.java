@@ -33,6 +33,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
     String latitude;
     String longitude;
     JsonController controller;
+    boolean finishedDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +59,6 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                 }
         );
 
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-
-
-        }
 
         ConnectivityManager cManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo nInfo = cManager.getActiveNetworkInfo();
@@ -101,16 +93,28 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                     .setCancelable(false)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                            finishedDialog = true;
                             startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                            finishedDialog = true;
                             dialog.cancel();
                         }
                     });
             final AlertDialog message = buildObj.create();
             message.show();
+        }
+
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+
+
         }
     }
 
@@ -123,7 +127,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
         // getLocation();
 
         // for emulator
-        getLocation("37.7216269", "-122.4766322");
+        //   getLocation("37.7216269", "-122.4766322");
     }
 
     protected void onStop() {
@@ -140,7 +144,6 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnected(Bundle connectionHint) {
-
         getLocation();
     }
 
@@ -156,6 +159,9 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                 Log.i("mylatitude", longitude);
                 Toast.makeText(this, "Display Events at Location: " + latitude + ", " + longitude, Toast.LENGTH_LONG).show();
                 controller.sendRequest(latitude, longitude);
+            }else{
+                Toast.makeText(this, "Default location: San Francisco", Toast.LENGTH_SHORT).show();
+                getLocation("37.7216269", "-122.4766322");
             }
         }
     }

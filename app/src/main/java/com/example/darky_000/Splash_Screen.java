@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -87,29 +86,6 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                         }
                     });
             final AlertDialog message = buildObj2.create();
-            message.show();
-        }
-
-
-
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            Toast.makeText(this, "Location is enabled", Toast.LENGTH_SHORT).show();
-        } else {
-            final AlertDialog.Builder buildObj = new AlertDialog.Builder(this);
-            buildObj.setMessage("Location disabled, do you want to enable it?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            dialog.cancel();
-                        }
-                    });
-            final AlertDialog message = buildObj.create();
             message.show();
         }
     }

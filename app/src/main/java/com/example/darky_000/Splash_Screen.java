@@ -33,7 +33,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
     String latitude;
     String longitude;
     JsonController controller;
-    boolean finishedDialog;
+    boolean finishedDialog = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,21 +65,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
         if(nInfo!=null && nInfo.isConnected()){
             Toast.makeText(this, "Network is available", Toast.LENGTH_SHORT).show();
         }else {
-            final AlertDialog.Builder buildObj2 = new AlertDialog.Builder(this);
-            buildObj2.setMessage("Network is disabled, do you want to enable it?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            startActivity(new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS));
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            dialog.cancel();
-                        }
-                    });
-            final AlertDialog message = buildObj2.create();
-            message.show();
+            Toast.makeText(this,"Please turn on Wi-Fi and restart the app to find events ", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -88,23 +74,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             Toast.makeText(this, "Location is enabled", Toast.LENGTH_SHORT).show();
         } else {
-            final AlertDialog.Builder buildObj = new AlertDialog.Builder(this);
-            buildObj.setMessage("Location disabled, do you want to enable it?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            finishedDialog = true;
-                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            finishedDialog = true;
-                            dialog.cancel();
-                        }
-                    });
-            final AlertDialog message = buildObj.create();
-            message.show();
+            Toast.makeText(this, "Please turn on Location and restart the app to find events close to you", Toast.LENGTH_SHORT).show();
         }
 
         if (mGoogleApiClient == null) {
@@ -113,8 +83,6 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
-
-
         }
     }
 
@@ -157,10 +125,10 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
                 longitude = String.valueOf(mLastLocation.getLongitude());
                 Log.i("mylatitude", latitude);
                 Log.i("mylatitude", longitude);
-                Toast.makeText(this, "Display Events at Location: " + latitude + ", " + longitude, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Displaying Events at Location: " + latitude + ", " + longitude, Toast.LENGTH_LONG).show();
                 controller.sendRequest(latitude, longitude);
             }else{
-                Toast.makeText(this, "Default location: San Francisco", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Could not find location. Default location: San Francisco", Toast.LENGTH_SHORT).show();
                 getLocation("37.7216269", "-122.4766322");
             }
         }
@@ -181,4 +149,5 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
+
 }

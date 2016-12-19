@@ -65,7 +65,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
         if(nInfo!=null && nInfo.isConnected()){
             Toast.makeText(this, "Network is available", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(this,"Please turn on Wi-Fi and restart the app to find events ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Please turn on Wi-Fi and restart the app to find events ", Toast.LENGTH_LONG).show();
         }
 
 
@@ -74,7 +74,7 @@ public class Splash_Screen extends AppCompatActivity implements GoogleApiClient.
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             Toast.makeText(this, "Location is enabled", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Please turn on Location and restart the app to find events close to you", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please turn on Location and restart the app to find events close to you", Toast.LENGTH_LONG).show();
         }
 
         if (mGoogleApiClient == null) {
